@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.restauranteelbuensabor;
 
-/**
- *
- * @author alfre
- */
 public class Datos {
 
-    public static String[] nom = {
+    // Arrays renombrados
+    public static String[] nombres = {
         "Bandeja Paisa",
         "Sancocho de Gallina",
         "Arepa con Huevo",
@@ -21,7 +14,7 @@ public class Datos {
         "Arroz con Pollo"
     };
 
-    public static double[] p = {
+    public static double[] precios = {
         32000,
         28000,
         8000,
@@ -32,15 +25,15 @@ public class Datos {
         25000
     };
 
-    public static int[] cant = {
+    public static int[] cantidades = {
         0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    public static int ms = 0;
-    public static int est = 0;
-    public static double tot = 0;
-    public static int nf = 1;
-    public static String x = "El Buen Sabor";
-    public static String tmp = "";
-
+    // Variables renombradas
+    public static int numeroMesaActual = 0;   // ms
+    public static int estadoMesa = 0;         // est
+    public static double total = 0;           // tot
+    public static int numeroFactura = 1;      // nf
+    public static String nombreRestaurante = "El Buen Sabor"; // x
+    public static String temporal = "";       // tmp
 }
