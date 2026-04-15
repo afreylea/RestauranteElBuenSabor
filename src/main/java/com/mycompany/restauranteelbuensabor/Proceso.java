@@ -2,101 +2,101 @@ package com.mycompany.restauranteelbuensabor;
 
 public class Proceso {
 
-    public static double hacerTodo() {
-        double sub = 0;
+    public static double calcularTotalFactura() {
+        double subtotal = 0;
         double iva = 0;
-        double tot = 0;
-        double aux = 0;
-        int cont = 0;
-        int i = 0;
+        double total = 0;
+        double subtotalConDescuento = 0;
+        int contadorProductos = 0;
+        int indice = 0;
 
-        while (i < Datos.nom.length) {
-            if (Datos.cant[i] > 0) {
+        while (indice < Datos.nombres.length) {
+            if (Datos.cantidades[indice] > 0) {
                 // multiplica precio por cantidad
-                sub = sub + Datos.p[i] * Datos.cant[i];
-                cont = cont + 1;
+                subtotal = subtotal + Datos.precios[indice] * Datos.cantidades[indice];
+                contadorProductos = contadorProductos + 1;
             }
-            i++;
+            indice++;
         } // fin while
 
-        if (cont > 3) {
-            if (sub > 0) {
-                aux = sub - (sub * 0.05);
+        if (contadorProductos > 3) {
+            if (subtotal > 0) {
+                subtotalConDescuento = subtotal - (subtotal * 0.05);
 
-                if (aux > 50000) {
-                    iva = aux * 0.19;
+                if (subtotalConDescuento > 50000) {
+                    iva = subtotalConDescuento * 0.19;
 
                     // suma iva al subtotal con descuento
-                    tot = aux + iva;
-                    tot = tot + (tot * 0.10);
+                    total = subtotalConDescuento + iva;
+                    total = total + (total * 0.10);
                 } else {
                     // suma iva al subtotal
-                    iva = aux * 0.19;
-                    tot = aux + iva;
+                    iva = subtotalConDescuento * 0.19;
+                    total = subtotalConDescuento + iva;
                 }
-            } // fin if sub > 0
+            } // fin if subtotal > 0
 
             // version anterior - no borrar
-            // sub = sub * 1.19;
-            // if(sub > 40000) sub = sub + (sub*0.10);
-            // return sub;
+            // subtotal = subtotal * 1.19;
+            // if(subtotal > 40000) subtotal = subtotal + (subtotal * 0.10);
+            // return subtotal;
 
         } else {
-            if (sub > 50000) {
-                iva = sub * 0.19;
+            if (subtotal > 50000) {
+                iva = subtotal * 0.19;
 
                 // suma iva al subtotal
-                tot = sub + iva;
-                tot = tot + (tot * 0.10);
+                total = subtotal + iva;
+                total = total + (total * 0.10);
             } else {
-                iva = sub * 0.19;
-                tot = sub + iva;
+                iva = subtotal * 0.19;
+                total = subtotal + iva;
             }
-        } // fin if-else cont
+        } // fin if-else contadorProductos
 
-        Datos.est = 1;
-        Datos.tot = tot;
+        Datos.estadoMesa = 1;
+        Datos.total = total;
 
-        return tot;
+        return total;
     }
 
-    public static double procesar(
-        double a,
-        double b,
-        double c,
-        double d,
-        double e,
-        int f,
-        boolean g
+    public static double calcularPromocion(
+        double precio,
+        double cantidad,
+        double descuento,
+        double iva,
+        double propina,
+        int numeroProductos,
+        boolean aplicaPropina
     ) {
-        double res = 0;
-        double iva = 0;
-        double prop = 0;
-        double tmp = 0;
+        double resultado = 0;
+        double ivaCalculado = 0;
+        double propinaCalculada = 0;
+        double temporal = 0;
 
         // calcula subtotal con cantidad
-        res = a * b;
+        resultado = precio * cantidad;
 
-        if (c > 0) {
+        if (descuento > 0) {
             // aplica descuento
-            res = res - (res * c);
+            resultado = resultado - (resultado * descuento);
         }
 
         // calcula iva
-        iva = res * d;
-        tmp = iva;
-        res = res + tmp;
+        ivaCalculado = resultado * iva;
+        temporal = ivaCalculado;
+        resultado = resultado + temporal;
 
-        if (g) {
+        if (aplicaPropina) {
             // aplica propina si corresponde
-            prop = res * e;
-            res = res + prop;
+            propinaCalculada = resultado * propina;
+            resultado = resultado + propinaCalculada;
         }
 
-        if (f > 3) {
-            res = res - (res * 0.01);
+        if (numeroProductos > 3) {
+            resultado = resultado - (resultado * 0.01);
         }
 
-        return res;
+        return resultado;
     }
 }
