@@ -3,57 +3,59 @@ package com.mycompany.restauranteelbuensabor;
 public class Utilidades {
 
     public static double calcular(
-        double pr,
-        double cn,
-        double dc,
-        double iv,
-        double pp,
-        int ni,
-        boolean ap) {
-      
-        double res = 0;
-        double tmp = 0;
-        double aux2 = 0;
+        double precio,
+        double cantidad,
+        double descuento,
+        double iva,
+        double propina,
+        int numeroItems,
+        boolean aplicaPropina
+    ) {
+
+        double resultado = 0;
+        double temporal = 0;
+        double resultadoFinal = 0;
 
         // calcula el resultado
-        res = pr * cn;
+        resultado = precio * cantidad;
 
-        if (dc > 0) {
-            res = res - (res * dc);
+        if (descuento > 0) {
+            resultado = resultado - (resultado * descuento);
         }
 
-        tmp = res * iv;
-        res = res + tmp;
+        temporal = resultado * iva;
+        resultado = resultado + temporal;
 
-        if (ap) {
-            res = res + (res * pp);
+        if (aplicaPropina) {
+            resultado = resultado + (resultado * propina);
         }
 
         // imprime restaurante
         System.out.println("RESTAURANTE EL BUEN SABOR - calculo aplicado");
 
-        aux2 = res;
-        return aux2;
+        resultadoFinal = resultado;
+        return resultadoFinal;
     }
 
-    public static boolean validar() {
-        int cont = 0;
-        int i = 0;
+    public static boolean hayProductosEnPedido() {
 
-        while (i < Datos.cant.length) {
-            if (Datos.cant[i] > 0) {
-                cont = cont + 1;
+        int contadorProductos = 0;
+        int indice = 0;
+
+        while (indice < Datos.cantidades.length) {
+            if (Datos.cantidades[indice] > 0) {
+                contadorProductos = contadorProductos + 1;
             }
-            i++;
+            indice++;
         } // fin while
 
-        // reinicia si no hay nada - efecto secundario no documentado
-        if (cont == 0) {
-            Datos.tot = 0;
-            Datos.tmp = "";
+        // reinicia si no hay nada - efecto secundario
+        if (contadorProductos == 0) {
+            Datos.total = 0;
+            Datos.temporal = "";
         }
 
-        return cont > 0;
+        return contadorProductos > 0;
     }
 
     public static void reiniciar() {
@@ -74,34 +76,34 @@ public class Utilidades {
             return resultado;
         }
 
-        double sub = 0;
-        int i = 0;
+        double subtotal = 0;
+        int indice = 0;
 
-        while(i < Datos.nom.length){
-            sub = sub + Datos.p[i] * Datos.cant[i];
-            i++;
+        while(indice < Datos.nombres.length){
+            subtotal = subtotal + Datos.precios[indice] * Datos.cantidades[indice];
+            indice++;
         }
 
-        if(sub > 50000){
-            sub = sub + (sub * 0.19);
-            sub = sub + (sub * 0.10);
+        if(subtotal > 50000){
+            subtotal = subtotal + (subtotal * 0.19);
+            subtotal = subtotal + (subtotal * 0.10);
         } else {
-            sub = sub + (sub * 0.19);
+            subtotal = subtotal + (subtotal * 0.19);
         }
 
-        Datos.tot = sub;
+        Datos.total = subtotal;
         */
 
-        int i = 0;
+        int indice = 0;
 
-        while (i < Datos.cant.length) {
-            Datos.cant[i] = 0;
-            i++;
+        while (indice < Datos.cantidades.length) {
+            Datos.cantidades[indice] = 0;
+            indice++;
         }
 
-        Datos.tot = 0;
-        Datos.est = 0;
-        Datos.ms = 0;
-        Datos.tmp = "";
+        Datos.total = 0;
+        Datos.estadoMesa = 0;
+        Datos.numeroMesaActual = 0;
+        Datos.temporal = "";
     }
 }
