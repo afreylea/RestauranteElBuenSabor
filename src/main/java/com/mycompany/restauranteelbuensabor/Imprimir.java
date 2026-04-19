@@ -2,8 +2,9 @@ package com.mycompany.restauranteelbuensabor;
 
 /**
  * Responsable de toda la presentación en pantalla.
- * Es la dueña de los datos de identidad visual del restaurante
- * (nombre, dirección, NIT, separadores), porque es la única que los necesita.
+ * Usa Util.borrarPantalla() antes de cada sección para dar
+ * una experiencia de pantalla limpia entre operaciones.
+ * Expone mostrarMenu() para que Main ya no imprima nada directamente.
  */
 public class Imprimir {
 
@@ -47,11 +48,32 @@ public class Imprimir {
 
     // ── Métodos públicos ──────────────────────────────────────────────────
 
+    /** Bienvenida inicial al arrancar el sistema. */
     public static void mostrarBienvenida() {
+        Util.borrarPantalla();
         imprimirEncabezado();
     }
 
+    /**
+     * Muestra el menú principal con pantalla limpia.
+     * Main lo llama al inicio de cada iteración del bucle.
+     */
+    public static void mostrarMenu() {
+        Util.borrarPantalla();
+        imprimirEncabezado();
+        System.out.println("1. Ver carta");
+        System.out.println("2. Agregar producto al pedido");
+        System.out.println("3. Ver pedido actual");
+        System.out.println("4. Generar factura");
+        System.out.println("5. Nueva mesa");
+        System.out.println("0. Salir");
+        System.out.println(SEPARADOR_LARGO);
+        System.out.print("Seleccione una opcion: ");
+    }
+
+    /** Muestra la carta de productos con pantalla limpia. */
     public static void mostrarCarta() {
+        Util.borrarPantalla();
         imprimirEncabezado();
         System.out.println("    --- NUESTRA CARTA ---");
         System.out.println(SEPARADOR_LARGO);
@@ -69,7 +91,9 @@ public class Imprimir {
         System.out.println(SEPARADOR_LARGO);
     }
 
+    /** Muestra los ítems del pedido activo con pantalla limpia. */
     public static void mostrarPedido(Pedido pedido) {
+        Util.borrarPantalla();
         System.out.println("--- PEDIDO ACTUAL ---");
 
             for (Item item : pedido.getItems()) {
@@ -85,7 +109,9 @@ public class Imprimir {
         System.out.printf("%-27s $%,.0f%n", "Subtotal:", pedido.calcularSubtotal());
     }
 
+    /** Imprime la factura completa con detalle de ítems y totales. */
     public static void imprimirFacturaCompleta(Factura factura) {
+        Util.borrarPantalla();
         imprimirEncabezado();
         System.out.printf("FACTURA No. %03d%n", factura.getNumero());
         System.out.println(SEPARADOR_CORTO);
@@ -105,7 +131,9 @@ public class Imprimir {
         System.out.println(SEPARADOR_LARGO);
     }
 
+    /** Imprime la factura en formato resumido (solo totales, sin detalle). */
     public static void imprimirFacturaResumen(Factura factura) {
+        Util.borrarPantalla();
         imprimirEncabezado();
         System.out.printf("FACTURA No. %03d (RESUMEN)%n", factura.getNumero());
         imprimirTotales(factura);

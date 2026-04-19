@@ -24,35 +24,24 @@ public class RestauranteElBuenSabor {
 
     private static void ejecutarMenuPrincipal() {
         boolean ejecutando = true;
+
             while (ejecutando) {
-                mostrarOpcionesMenu();
+                Imprimir.mostrarMenu();
                 int opcion = scanner.nextInt();
                 ejecutando = procesarOpcion(opcion);
             }
     }
 
-    private static void mostrarOpcionesMenu() {
-        System.out.println("1. Ver carta");
-        System.out.println("2. Agregar producto al pedido");
-        System.out.println("3. Ver pedido actual");
-        System.out.println("4. Generar factura");
-        System.out.println("5. Nueva mesa");
-        System.out.println("0. Salir");
-        System.out.println("========================================");
-        System.out.print("Seleccione una opcion: ");
-    }
-
     private static boolean procesarOpcion(int opcion) {
-            switch (opcion) {
-                case 1 -> Imprimir.mostrarCarta();
-                case 2 -> agregarProductoAlPedido();
-                case 3 -> verPedidoActual();
-                case 4 -> generarFactura();
-                case 5 -> iniciarNuevaMesa();
-                case 0 -> { System.out.println("Hasta luego!"); return false; }
-                default -> System.out.println("Opcion no valida. Seleccione entre 0 y 5.");
-            }
-        System.out.println();
+        switch (opcion) {
+            case 1 -> { Imprimir.mostrarCarta();            Util.esperarEnter(); }
+            case 2 -> agregarProductoAlPedido();
+            case 3 -> { verPedidoActual();                  Util.esperarEnter(); }
+            case 4 -> { generarFactura();                   Util.esperarEnter(); }
+            case 5 -> { iniciarNuevaMesa();                 Util.esperarEnter(); }
+            case 0 -> { System.out.println("Hasta luego!"); return false; }
+            default -> { System.out.println("Opcion no valida. Seleccione entre 0 y 5."); Util.esperarEnter(); }
+        }
         return true;
     }
 
