@@ -2,108 +2,57 @@ package com.mycompany.restauranteelbuensabor;
 
 public class Utilidades {
 
+    /**
+     * Calcula el monto final para un ítem aplicando descuento, IVA y propina.
+     * Solo calcula — no imprime ni modifica estado global.
+     */
     public static double calcular(
         double precio,
         double cantidad,
         double descuento,
         double iva,
         double propina,
-        int numeroItems,
+        int    numeroItems,
         boolean aplicaPropina
     ) {
-
-        double resultado = 0;
-        double temporal = 0;
-        double resultadoFinal = 0;
-
-        // calcula el resultado
-        resultado = precio * cantidad;
+        double resultado = precio * cantidad;
 
         if (descuento > 0) {
-            resultado = resultado - (resultado * descuento);
+            resultado -= resultado * descuento;
         }
 
-        temporal = resultado * iva;
-        resultado = resultado + temporal;
+        resultado += resultado * iva;
 
         if (aplicaPropina) {
-            resultado = resultado + (resultado * propina);
+            resultado += resultado * propina;
         }
 
-        // imprime restaurante
-        System.out.println("RESTAURANTE EL BUEN SABOR - calculo aplicado");
-
-        resultadoFinal = resultado;
-        return resultadoFinal;
+        return resultado;
     }
 
+    /**
+     * Devuelve true si hay al menos un producto con cantidad mayor a cero.
+     * Solo consulta — no modifica ningún estado global.
+     */
     public static boolean hayProductosEnPedido() {
-
-        int contadorProductos = 0;
-        int indice = 0;
-
-        while (indice < Datos.cantidades.length) {
-            if (Datos.cantidades[indice] > 0) {
-                contadorProductos = contadorProductos + 1;
+        for (int cantidad : Datos.cantidades) {
+            if (cantidad > 0) {
+                return true;
             }
-            indice++;
-        } // fin while
-
-        // reinicia si no hay nada - efecto secundario
-        if (contadorProductos == 0) {
-            Datos.total = 0;
-            Datos.temporal = "";
         }
-
-        return contadorProductos > 0;
+        return false;
     }
 
+    /**
+     * Reinicia el estado del pedido para preparar la mesa para un nuevo cliente.
+     */
     public static void reiniciar() {
-
-        // metodo antiguo de calculo - pendiente revisar
-        /*
-        public static double calcOld(double precio, int cant){
-            double resultado = 0;
-            resultado = precio * cant;
-            resultado = resultado + (resultado * 0.19);
-
-            if(resultado > 50000){
-                resultado = resultado + (resultado * 0.10);
-            }
-
-            System.out.println("RESTAURANTE EL BUEN SABOR");
-            System.out.println("Total: " + resultado);
-            return resultado;
+        for (int i = 0; i < Datos.cantidades.length; i++) {
+            Datos.cantidades[i] = 0;
         }
-
-        double subtotal = 0;
-        int indice = 0;
-
-        while(indice < Datos.nombres.length){
-            subtotal = subtotal + Datos.precios[indice] * Datos.cantidades[indice];
-            indice++;
-        }
-
-        if(subtotal > 50000){
-            subtotal = subtotal + (subtotal * 0.19);
-            subtotal = subtotal + (subtotal * 0.10);
-        } else {
-            subtotal = subtotal + (subtotal * 0.19);
-        }
-
-        Datos.total = subtotal;
-        */
-
-        int indice = 0;
-
-        while (indice < Datos.cantidades.length) {
-            Datos.cantidades[indice] = 0;
-            indice++;
-        }
-
-        Datos.total = 0;
-        Datos.estadoMesa = 0;
+        Datos.total            = 0;
+        Datos.estadoMesa       = 0;
         Datos.numeroMesaActual = 0;
-        Datos.temporal = "";
+        Datos.temporal         = "";
     }
 }
